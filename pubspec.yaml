@@ -42,6 +42,9 @@ dependencies:
   provider: ^6.0.5
   location_geocoder: ^1.0.5
   geocoding: ^2.1.1
+  sidebarx: ^0.16.2
+  flutter_switch: ^0.3.2
+  lottie: ^2.7.0
   
 dev_dependencies:
   flutter_test:
@@ -67,6 +70,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+  -  Assets/
   -  assets/cloud.png.jpg
   -  assets/cloud2.webp
   -  assets/activity.png

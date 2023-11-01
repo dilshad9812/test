@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whetherapp/api/currentlocation.dart';
+import 'package:whetherapp/api/themepro.dart';
 import 'package:whetherapp/pages/splashscreen.dart';
+import 'package:whetherapp/widgets/themeData.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,13 +23,20 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(
           create: (context) => Locationsss(),
-        )
+        ),
+        ChangeNotifierProvider(create: (context) => Themepro())
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: Splashscreen(),
-      ),
+      child: Consumer<Themepro>(builder: (context, themepro, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Weather App',
+          home: Splashscreen(),
+          // theme: Themeclass.lightheme,
+          theme: themepro.rrrr ? Themeclass.lightheme : Themeclass.darktheme,
+        );
+      }),
     );
   }
 }
+
+Themeclass aaa = Themeclass();

@@ -13,7 +13,7 @@ class Textwid extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        color: Colors.white,
+        color: Theme.of(context).textTheme.bodyLarge!.color,
         fontWeight:weight,
         fontSize: size,
       ),

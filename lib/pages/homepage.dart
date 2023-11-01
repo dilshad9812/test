@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:whetherapp/api/currentlocation.dart';
+
+import 'package:whetherapp/api/forecast.dart';
 import 'package:whetherapp/api/weatherdata.dart';
+import 'package:whetherapp/pages/datas.dart';
+import 'package:whetherapp/pages/forecastpage.dart';
 import 'package:whetherapp/widgets/textwidget.dart';
+import 'package:whetherapp/widgets/themeData.dart';
 import 'package:whetherapp/widgets/widgets.dart';
 
 String? cityName;
@@ -17,97 +23,126 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   final DateTime date = DateTime.now();
 
-  // Weather weather = Weather();
+  Weatherdata weatherdata = Weatherdata();
+  // Welcome? welcome;
 
   Locationsss location = Locationsss();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavBar(),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 7, 4, 29),
+        decoration: BoxDecoration(
+          gradient: Theme.of(context).brightness == Brightness.light
+              ? Themeclass.dayGradient
+              : Themeclass.nightGradient,
+          // color: Color.fromARGB(255, 61, 60, 60),
         ),
         child: SafeArea(
-          child: FutureBuilder<Weather>(
-            future: location.getCityWeather(),
+          child: FutureBuilder(
+            future: location.datatrans(),
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (datas != null) {
                 return Column(
                   children: [
-                    Padding(
-                      
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Container(
+                      height: 280,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        gradient:
+                            Theme.of(context).brightness == Brightness.light
+                                ? Themeclass.dayGradient
+                                : Themeclass.nightGradient,
+                        // LinearGradient(
+                        //     colors: [
+                        //       Color.fromARGB(255, 71, 70, 70),
+                        //       const Color.fromARGB(255, 50, 50, 50),
+                        //     ],
+                        //     begin: Alignment.bottomCenter,
+                        //     end: Alignment.topCenter),
+                        color: Color.fromARGB(255, 114, 112, 112),
+                      ),
+                      child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Textwid(
-                              text: DateFormat('HH:mm a').format(date),
-                              weight: FontWeight.w500,
-                              size: 20,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    width: 100,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Center(
+                                      child: Textwid(
+                                        text:
+                                            DateFormat('HH:mm a').format(date),
+                                        weight: FontWeight.w500,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Textwid(
+                                    text: DateFormat('dd-MMM').format(date),
+                                    size: 20,
+                                    weight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          Center(
                             child: Textwid(
-                              text: DateFormat('dd/MM/yy').format(date),
-                              size: 20,
-                              weight: FontWeight.w500,
+                              text: datas!.locality.toString(),
+                              // text: snapshot.data!.locality.toString(),
+                              //     datas!.name.toString(),
+                              size: 30,
+                              weight: FontWeight.w600,
                             ),
+                          ),
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Textwid(
+                                      // text: datas!.main.temp.toString(),
+                                      text: datas!.temp.toString(),
+                                      //  text: snapshot.data!.temp.toString() + '°C',
+                                      size: 20,
+                                      weight: FontWeight.w600),
+                                ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(datas!.description.toString()),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Textwid(
-                        text: snapshot.data!.locality.toString(),
-                        size: 30,
-                        weight: FontWeight.w600,
-                      ),
-                    ),
-
-                    // const Padding(
-                    //   padding: EdgeInsets.all(8.0),
-                    //   child: Tabbar(),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        'assets/cloud2.webp',
-                        scale: 5,
-                      ),
-                    ),
+                  
+                    
                     SizedBox(
                       height: 20,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Textwid(
-                          text: 'Report',
-                          size: 22,
-                          weight: FontWeight.w700,
-                        ),
-                        TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'View full repport',
-                              style: TextStyle(fontSize: 18),
-                            )),
-                      ],
-                    ),
-                    Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 40),
+                          padding: const EdgeInsets.only(left: 60),
                           child: SizedBox(
-                            width: 170,
-                            height: 190,
+                            width: 150,
+                            height: 220,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,58 +167,158 @@ class _HomepageState extends State<Homepage> {
                                   size: 20,
                                   weight: FontWeight.w400,
                                 ),
+                                Textwid(
+                                  text: 'Pressure',
+                                  size: 22,
+                                  weight: FontWeight.w600,
+                                ),
+                                Textwid(
+                                  text: 'Country',
+                                  size: 22,
+                                  weight: FontWeight.w600,
+                                ),
                               ],
                             ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 220,
+                          width: 30,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Textwid(
+                                text: ":",
+                                weight: FontWeight.w600,
+                                size: 24,
+                              ),
+                              Textwid(
+                                text: ':',
+                                size: 24,
+                                weight: FontWeight.w600,
+                              ),
+                              Textwid(
+                                text: ':',
+                                size: 24,
+                                weight: FontWeight.w600,
+                              ),
+                              Textwid(
+                                text: ':',
+                                size: 24,
+                                weight: FontWeight.w600,
+                              ),
+                              Textwid(
+                                text: ':',
+                                size: 24,
+                                weight: FontWeight.w600,
+                              ),
+                              Textwid(
+                                text: ':',
+                                size: 24,
+                                weight: FontWeight.w600,
+                              ),
+                            ],
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: SizedBox(
-                            height: 190,
-                            width: 170,
+                            height: 220,
+                            width: 150,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Textwid(
-                                  text: snapshot.data!.locality.toString(),
+                                  //  text: datas!.name.toString(),
+
+                                  text: datas!.locality.toString(),
+                                  // text: snapshot.data!.locality.toString(),
                                   size: 20,
                                   weight: FontWeight.w600,
                                 ),
                                 Textwid(
-                                    text: snapshot.data!.temp.toString() + '°C',
+                                    // text: datas!.main.temp.toString(),
+                                    text: datas!.temp.toString(),
+                                    //  text: snapshot.data!.temp.toString() + '°C',
                                     size: 20,
                                     weight: FontWeight.w600),
                                 Textwid(
-                                  text:
-                                      snapshot.data!.speed.toString() + ' km/h',
+                                  //  text: datas!.wind.speed.toString(),
+                                  text: datas!.speed.toString(),
+                                  //text:snapshot.data!.speed.toString() + ' km/h',
                                   size: 20,
                                   weight: FontWeight.w600,
                                 ),
                                 Textwid(
-                                    text: snapshot.data!.humidity.toString() +
+                                    text: datas!.humidity.toString() +
+                                        //    text: datas!.humidity.toString() +
+                                        // text: snapshot.data!.humidity.toString() +
                                         '%',
                                     size: 20,
                                     weight: FontWeight.w600),
+                                Textwid(
+                                    text: datas!.pressure.toString() + ' PA',
+                                    size: 20,
+                                    weight: FontWeight.w500),
+                                Textwid(
+                                    text: datas!.country.toString(),
+                                    size: 20,
+                                    weight: FontWeight.w500),
                               ],
                             ),
                           ),
                         ),
                       ],
                     ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(8.0),
+                    //   child: ElevatedButton(
+                    //     onPressed: () {
+                    //       Navigator.push(context,
+                    //           MaterialPageRoute(builder: (context) => Dat()));
+                    //     },
+                    //     style: ButtonStyle(
+                    //       backgroundColor: MaterialStateProperty.all<Color>(
+                    //           Colors.transparent),
+                    //       shape: MaterialStateProperty.all(
+                    //         RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(18),
+                    //           side: BorderSide(
+                    //             color: Color.fromARGB(255, 16, 20, 22),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     child: Text(
+                    //       'View full details',
+                    //       style: TextStyle(
+                    //           fontSize: 16,
+                    //           fontWeight: FontWeight.w400,
+                    //           color: Theme.of(context).iconTheme.color),
+                    //     ),
+                    //   ),
+                    // ),
                     const SizedBox(
-                      height: 10,
+                      height: 150,
                     ),
+                    const Bottombar(),
                   ],
                 );
               } else {
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                  // child: Textwid(
+                  //     text: 'eerorrr', weight: FontWeight.w900, size: 24),
+                );
               }
             },
           ),
         ),
       ),
-      bottomNavigationBar: const Bottombar(),
     );
   }
 }
