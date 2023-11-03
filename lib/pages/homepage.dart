@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 import 'package:whetherapp/api/currentlocation.dart';
-
-import 'package:whetherapp/api/forecast.dart';
 import 'package:whetherapp/api/weatherdata.dart';
-import 'package:whetherapp/pages/datas.dart';
-import 'package:whetherapp/pages/forecastpage.dart';
+import 'package:whetherapp/widgets/bottombar.dart';
+import 'package:whetherapp/widgets/listview.dart';
+import 'package:whetherapp/widgets/sidebar.dart';
 import 'package:whetherapp/widgets/textwidget.dart';
-import 'package:whetherapp/widgets/themeData.dart';
-import 'package:whetherapp/widgets/widgets.dart';
+import 'package:whetherapp/api/themeData.dart';
 
 String? cityName;
 
@@ -66,7 +63,8 @@ class _HomepageState extends State<Homepage> {
                         //     end: Alignment.topCenter),
                         color: Color.fromARGB(255, 114, 112, 112),
                       ),
-                      child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -111,37 +109,45 @@ class _HomepageState extends State<Homepage> {
                               weight: FontWeight.w600,
                             ),
                           ),
-                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Textwid(
-                                      // text: datas!.main.temp.toString(),
-                                      text: datas!.temp.toString(),
-                                      //  text: snapshot.data!.temp.toString() + '°C',
-                                      size: 20,
-                                      weight: FontWeight.w600),
-                                ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(datas!.description.toString()),
+                                padding:
+                                    const EdgeInsets.only(left: 30, bottom: 20),
+                                child: Textwid(
+                                    // text: datas!.main.temp.toString(),
+
+                                    //  text: snapshot.data!.temp.toString() ,
+                                    text: datas!.temp.toString() + '°C',
+                                    size: 20,
+                                    weight: FontWeight.w600),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    right: 30, bottom: 20),
+                                child: Text(
+                                  datas!.description.toString(),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               ),
                             ],
                           ),
                         ],
                       ),
                     ),
-                  
-                    
+
                     SizedBox(
-                      height: 20,
+                      height: 70,
                     ),
                     Row(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 60),
                           child: SizedBox(
-                            width: 150,
+                            width: 140,
                             height: 220,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -149,33 +155,33 @@ class _HomepageState extends State<Homepage> {
                               children: [
                                 Textwid(
                                   text: "Place",
-                                  weight: FontWeight.w400,
+                                  weight: FontWeight.w500,
                                   size: 20,
                                 ),
                                 Textwid(
                                   text: 'Temp',
                                   size: 20,
-                                  weight: FontWeight.w400,
+                                  weight: FontWeight.w500,
                                 ),
                                 Textwid(
                                   text: 'Wind',
                                   size: 20,
-                                  weight: FontWeight.w400,
+                                  weight: FontWeight.w500,
                                 ),
                                 Textwid(
                                   text: 'Humidity',
                                   size: 20,
-                                  weight: FontWeight.w400,
+                                  weight: FontWeight.w500,
                                 ),
                                 Textwid(
                                   text: 'Pressure',
-                                  size: 22,
-                                  weight: FontWeight.w600,
+                                  size: 20,
+                                  weight: FontWeight.w500,
                                 ),
                                 Textwid(
                                   text: 'Country',
-                                  size: 22,
-                                  weight: FontWeight.w600,
+                                  size: 20,
+                                  weight: FontWeight.w500,
                                 ),
                               ],
                             ),
@@ -232,23 +238,22 @@ class _HomepageState extends State<Homepage> {
                               children: [
                                 Textwid(
                                   //  text: datas!.name.toString(),
-
-                                  text: datas!.locality.toString(),
                                   // text: snapshot.data!.locality.toString(),
-                                  size: 20,
+                                  text: datas!.locality.toString(),
+                                  size: 22,
                                   weight: FontWeight.w600,
                                 ),
                                 Textwid(
                                     // text: datas!.main.temp.toString(),
                                     text: datas!.temp.toString(),
                                     //  text: snapshot.data!.temp.toString() + '°C',
-                                    size: 20,
+                                    size: 22,
                                     weight: FontWeight.w600),
                                 Textwid(
                                   //  text: datas!.wind.speed.toString(),
                                   text: datas!.speed.toString(),
                                   //text:snapshot.data!.speed.toString() + ' km/h',
-                                  size: 20,
+                                  size: 22,
                                   weight: FontWeight.w600,
                                 ),
                                 Textwid(
@@ -256,16 +261,16 @@ class _HomepageState extends State<Homepage> {
                                         //    text: datas!.humidity.toString() +
                                         // text: snapshot.data!.humidity.toString() +
                                         '%',
-                                    size: 20,
+                                    size: 22,
                                     weight: FontWeight.w600),
                                 Textwid(
                                     text: datas!.pressure.toString() + ' PA',
-                                    size: 20,
-                                    weight: FontWeight.w500),
+                                    size: 22,
+                                    weight: FontWeight.w600),
                                 Textwid(
                                     text: datas!.country.toString(),
-                                    size: 20,
-                                    weight: FontWeight.w500),
+                                    size: 22,
+                                    weight: FontWeight.w600),
                               ],
                             ),
                           ),
@@ -300,10 +305,26 @@ class _HomepageState extends State<Homepage> {
                     //     ),
                     //   ),
                     // ),
-                    const SizedBox(
-                      height: 150,
+                    SizedBox(
+                      height: 50,
                     ),
-                    const Bottombar(),
+                    Text(
+                      'Today',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.orange),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Listcont(),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const Bottombar(),
+                    ),
                   ],
                 );
               } else {

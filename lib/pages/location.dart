@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:whetherapp/api/currentlocation.dart';
 import 'package:whetherapp/pages/homepage.dart';
+import 'package:whetherapp/widgets/bottombar.dart';
 import 'package:whetherapp/widgets/textwidget.dart';
-import 'package:whetherapp/widgets/themeData.dart';
-import 'package:whetherapp/widgets/widgets.dart';
+import 'package:whetherapp/api/themeData.dart';
 
+// ignore: must_be_immutable
 class Locationsearch extends StatelessWidget {
   Locationsearch({super.key});
 
   Locationsss location = Locationsss();
+
   // Weatherdata weather = Weatherdata();
   TextEditingController _cityname = TextEditingController();
 

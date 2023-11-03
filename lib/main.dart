@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:whetherapp/api/currentlocation.dart';
 import 'package:whetherapp/api/themepro.dart';
 import 'package:whetherapp/pages/splashscreen.dart';
-import 'package:whetherapp/widgets/themeData.dart';
+import 'package:whetherapp/api/themeData.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +17,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -27,12 +29,14 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => Themepro())
       ],
       child: Consumer<Themepro>(builder: (context, themepro, child) {
+        themepro.autothemechange();
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Weather App',
           home: Splashscreen(),
-          // theme: Themeclass.lightheme,
-          theme: themepro.rrrr ? Themeclass.lightheme : Themeclass.darktheme,
+          theme:
+              themepro.currenttheme,
+             // themepro.rrrr ? Themeclass.lightheme : Themeclass.darktheme,
         );
       }),
     );

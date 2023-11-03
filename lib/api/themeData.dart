@@ -42,8 +42,8 @@ class Themeclass {
     brightness: Brightness.dark,
     colorScheme: ColorScheme.dark(
         background: Colors.black,
-        primary: Color.fromARGB(255, 114, 112, 112),
-        secondary: Color.fromARGB(255, 122, 121, 121)),
+        primary: Color.fromARGB(255, 94, 92, 92),
+        secondary: Color.fromARGB(255, 172, 171, 171)),
     textTheme: TextTheme(
       bodyLarge: TextStyle(color: Colors.white),
     ),

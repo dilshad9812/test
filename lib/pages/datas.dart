@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:whetherapp/api/currentlocation.dart';
 import 'package:whetherapp/api/weatherdata.dart';
 import 'package:whetherapp/widgets/textwidget.dart';
-import 'package:whetherapp/widgets/themeData.dart';
+import 'package:whetherapp/api/themeData.dart';
 
-class Dat extends StatelessWidget {
-  Dat({super.key});
+// ignore: must_be_immutable
+class Dataas extends StatelessWidget {
+  Dataas({super.key});
 
   Locationsss location = Locationsss();
 

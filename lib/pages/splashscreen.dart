@@ -20,6 +20,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
   Future<void> gotoslidescreen() async {
     locationsss.getCityWeather();
+   // Themepro().autothemechange();
 
     await Future.delayed(Duration(seconds: 2));
     Navigator.pushReplacement(
